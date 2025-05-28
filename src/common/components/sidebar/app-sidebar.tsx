@@ -45,7 +45,7 @@ export function AppSidebar() {
           <SidebarGroupContent className='px-6 mt-4 '>
             <SidebarMenu className='space-y-4'>
               {sidebarItems.map(item => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem className='mt-3' key={item.title}>
                   <SidebarMenuButton
                     className={cn(
                       'hover:bg-[#FFF3F0] hover:text-primary rounded-[53px]',

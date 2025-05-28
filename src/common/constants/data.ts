@@ -17,7 +17,7 @@ export const sidebarItems = [
   },
   {
     title: 'Order',
-    url: '#',
+    url: '/order',
     icon: order,
   },
   {

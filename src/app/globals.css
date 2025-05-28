@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   /* --font-sans: var(--font-manrope-sans); */
@@ -55,6 +56,7 @@
 
   /* CSS variables */
   --color-primary-hex: var(--logo-primary-hex);
+  --color-icon-hex: var(--logo-icons);
   --color-secondary-hex: var(--logo-secondary-hex);
   --color-danger-hex: var(--danger-hex);
   --color-light-gray: var(--light-gray-hex);
@@ -112,6 +114,7 @@
   --secondary-hex: #c0900a;
   --danger-hex: #d96a46;
   --logo-primary-hex: #ffc41f;
+  --logo-icons: #FD683E;
   --logo-secondary-hex: #c0900a;
   --light-gray-hex: #f9fafb;
   --light-blue-hex: #dbe5fc;
