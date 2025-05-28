@@ -1,0 +1,291 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* --font-sans: var(--font-manrope-sans); */
+  /* --font-mono: var(--font-geist-mono); */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-10: var(--secondary-10);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-primary-20: var(--primary-20);
+  --color-primary-80: var(--primary-80);
+  --color-dark: var(--dark);
+  --color-grey-10: var(--grey-10);
+  --color-grey-40: var(--grey-40);
+  --color-grey-50: var(--grey-50);
+  --color-grey-60: var(--grey-60);
+  --color-grey-70: var(--grey-70);
+  --color-grey-80: var(--grey-80);
+  --color-grey-100: var(--grey-100);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* CSS variables */
+  --color-primary-hex: var(--logo-primary-hex);
+  --color-secondary-hex: var(--logo-secondary-hex);
+  --color-danger-hex: var(--danger-hex);
+  --color-light-gray: var(--light-gray-hex);
+  --color-light-blue: var(--light-blue-hex);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(37.29% 0.0306 259.73);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  /* --primary: oklch(0.58 0.226 260.59); */
+  --primary: oklch(0.83 0.26 83.84);
+  --primary-20: oklch(96.62% 0.0109 211.04);
+  --primary-80: oklch(79.4% 0.0619 211.9);
+  --primary-foreground: oklch(0.985 0 0);
+  --dark: oklch(0.37 0.0306 259.73);
+  --grey-10: oklch(0.94 0.0045 214.33);
+  --grey-40: oklch(0.81 0.0133 202.89);
+  --grey-50: oklch(0.73 0.0125 203.43);
+  --grey-60: oklch(0.68 0.015 202.38);
+  --grey-70: oklch(0.53 0.0138 209.8);
+  --grey-80: oklch(0.46 0.0102 205.82);
+  --grey-100: oklch(0.28 0.006 214.39);
+  --secondary: oklch(77.62% 0.1436 168.85);
+  --secondary-10: oklch(95.29% 0.0451 175.67);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+
+  /* Hex */
+  --primary-hex: #ffc41f;
+  --secondary-hex: #c0900a;
+  --danger-hex: #d96a46;
+  --logo-primary-hex: #ffc41f;
+  --logo-secondary-hex: #c0900a;
+  --light-gray-hex: #f9fafb;
+  --light-blue-hex: #dbe5fc;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar-background: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.8% 95.9%;
+  --sidebar-primary: 224.3 76.3% 48%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 240 3.7% 15.9%;
+  --sidebar-accent-foreground: 240 4.8% 95.9%;
+  --sidebar-border: 240 3.7% 15.9%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.screen {
+  @apply min-h-screen max-w-screen w-full flex flex-col;
+}
+
+.full {
+  @apply flex-1 flex flex-col;
+}
+
+.center-div {
+  @apply flex justify-center flex-1 h-full;
+}
+
+.table-div {
+  @apply rounded-xl border;
+}
+
+/* Scrollbar */
+/* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
+/** {
+  scrollbar-width: thin;
+  scrollbar-color: #8DC7D3 #ECF6F8;
+}*/
+
+/* Chrome, Edge and Safari */
+::-webkit-scrollbar {
+  height: 10px;
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #f4f5f8;
+  border: 1px solid #ffffff;
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: #ecf6f8;
+}
+
+::-webkit-scrollbar-track:active {
+  background-color: #ecf6f8;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ffc41f;
+  border: 1px solid #ffffff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ffc41f;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #ffc41f;
+}
+
+/* For Chat Box */
+/* .chat-scroll::-webkit-scrollbar-track {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.typing-dots {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 4px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.dot.delay-1 {
+  animation-delay: 0.1s;
+}
+
+.dot.delay-2 {
+  animation-delay: 0.2s;
+}
+
+.dot.delay-3 {
+  animation-delay: 0.3s;
+}
+
+.dot.delay-4 {
+  animation-delay: 0.4s;
+}
+
+.dot.delay-5 {
+  animation-delay: 0.5s;
+} */
+
+/* @keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  40% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+} */
+
+/* Markdown */
+
+.prose ol {
+  list-style-type: decimal !important;
+  padding-left: 1.25rem;
+}
+
+.prose ul {
+  list-style-type: disc !important;
+  padding-left: 1.25rem;
+}
+
+.prose a {
+  color: var(--primary-hex) !important;
+  transition: all 300ms;
+}
+
+.prose a:hover {
+  color: var(--secondary-hex) !important;
+}
