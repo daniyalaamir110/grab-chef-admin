@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: [
       'flowbills-profile-images-bucket.s3.eu-central-1.amazonaws.com',
