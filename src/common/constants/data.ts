@@ -22,7 +22,7 @@ export const sidebarItems = [
   },
   {
     title: 'Order Details',
-    url: '#',
+    url: '/order/123',
     icon: orderDetails,
   },
   {
@@ -37,7 +37,7 @@ export const sidebarItems = [
   },
   {
     title: 'Review',
-    url: '#',
+    url: '/review',
     icon: review,
   },
   {
@@ -47,7 +47,7 @@ export const sidebarItems = [
   },
   {
     title: 'Chef',
-    url: '#',
+    url: '/chef-document',
     icon: chef,
   },
 ];

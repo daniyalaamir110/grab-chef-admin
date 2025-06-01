@@ -22,6 +22,9 @@ const LoginForm = () => {
     validationSchema: loginSchema,
     onSubmit: values => {
       console.log(values);
+      console.log("first")
+      router.push('/dashboard')
+
       // mutate(values, {
       //   onSuccess() {
       //     router.push('/contracts/all');
