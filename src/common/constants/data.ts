@@ -26,13 +26,13 @@ export const sidebarItems = [
     icon: orderDetails,
   },
   {
-    title: 'Customer',
-    url: '#',
+    title: 'Chef Request',
+    url: 'chef-document',
     icon: customer,
   },
   {
     title: 'Analytics',
-    url: '#',
+    url: '/analytics',
     icon: analytics,
   },
   {
