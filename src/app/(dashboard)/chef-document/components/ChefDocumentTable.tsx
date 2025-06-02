@@ -27,7 +27,7 @@ const ChefDocumentTable = () => {
   const documents: ChefDocument[] = [
     {
       id: "#C-004560",
-      avatar: "/lovable-uploads/c8d472db-732b-4c96-9ce2-63db87a64640.png",
+      avatar: "''",
       document: "New Document",
       joinDate: "26 March 2020, 12:42 AM",
       chefName: "Veronica",
@@ -35,7 +35,7 @@ const ChefDocumentTable = () => {
     },
     {
       id: "#C-004560",
-      avatar: "/lovable-uploads/57d8cb1b-8a4b-4d5f-9ec9-be3db6582270.png",
+      avatar: "",
       document: "New Document",
       joinDate: "26 March 2020, 12:42 AM",
       chefName: "Veronica",
@@ -43,7 +43,7 @@ const ChefDocumentTable = () => {
     },
     {
       id: "#C-004560",
-      avatar: "/lovable-uploads/c8d472db-732b-4c96-9ce2-63db87a64640.png",
+      avatar: "''",
       document: "New Document",
       joinDate: "26 March 2020, 12:42 AM",
       chefName: "Veronica",
@@ -51,7 +51,7 @@ const ChefDocumentTable = () => {
     },
     {
       id: "#C-004560",
-      avatar: "/lovable-uploads/57d8cb1b-8a4b-4d5f-9ec9-be3db6582270.png",
+      avatar: "''",
       document: "New Document",
       joinDate: "26 March 2020, 12:42 AM",
       chefName: "Veronica",
@@ -59,7 +59,7 @@ const ChefDocumentTable = () => {
     },
     {
       id: "#C-004560",
-      avatar: "/lovable-uploads/c8d472db-732b-4c96-9ce2-63db87a64640.png",
+      avatar: "''",
       document: "New Document",
       joinDate: "26 March 2020, 12:42 AM",
       chefName: "Veronica",
@@ -67,7 +67,7 @@ const ChefDocumentTable = () => {
     },
     {
       id: "#C-004560",
-      avatar: "/lovable-uploads/57d8cb1b-8a4b-4d5f-9ec9-be3db6582270.png",
+      avatar: "''",
       document: "New Document",
       joinDate: "26 March 2020, 12:42 AM",
       chefName: "Veronica",
@@ -75,7 +75,7 @@ const ChefDocumentTable = () => {
     },
     {
       id: "#C-004560",
-      avatar: "/lovable-uploads/c8d472db-732b-4c96-9ce2-63db87a64640.png",
+      avatar: "''",
       document: "New Document",
       joinDate: "26 March 2020, 12:42 AM",
       chefName: "Veronica",
@@ -83,7 +83,7 @@ const ChefDocumentTable = () => {
     },
     {
       id: "#C-004560",
-      avatar: "/lovable-uploads/57d8cb1b-8a4b-4d5f-9ec9-be3db6582270.png",
+      avatar: "''",
       document: "New Document",
       joinDate: "26 March 2020, 12:42 AM",
       chefName: "Veronica",

@@ -73,7 +73,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const SalesSummaryCard: React.FC = () => {
   return (
-    <div className="bg-white p-6 rounded-2xl shadow w-full max-w-4xl mx-auto flex justify-between items-center">
+    <div className="bg-white p-6 rounded-2xl shadow w-full flex justify-between items-center">
       <div className="w-full">
         <h2 className="text-xl font-semibold">Customer Map</h2>
         <p className="text-sm text-gray-400 mb-6">Lorem ipsum dolor sit amet, consectetur</p>
