@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Crown, X, XCircle } from 'lucide-react';
+import Link from 'next/link';
 
 interface ChefDocumentCardProps {
   id: string;
@@ -33,7 +34,7 @@ const ChefDocumentCard = ({
             className="w-18 h-18 rounded-full object-cover"
         />
       </TableCell>
-      <TableCell className="text-sm text-gray-600">{id}</TableCell>
+      <TableCell className="text-sm text-gray-600"><Link href={`/chef/${chefName}`}>{id}</Link></TableCell>
       
       {/* Chef Document */}
       <TableCell>
