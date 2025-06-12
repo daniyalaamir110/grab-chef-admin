@@ -7,6 +7,7 @@ import analytics from '../../../public/assets/sidebar-icons/analytics.svg';
 import review from '../../../public/assets/sidebar-icons/review.svg';
 import task from '../../../public/assets/sidebar-icons/task.svg';
 import chef from '../../../public/assets/sidebar-icons/chef.svg';
+import chefReq from '../../../public/assets/sidebar-icons/chefRequest.png';
 
 // Sidebar items
 export const sidebarItems = [
@@ -27,8 +28,8 @@ export const sidebarItems = [
   },
   {
     title: 'Chef Request',
-    url: 'chef-document',
-    icon: customer,
+    url: '/chef-request',
+    icon: chefReq,
   },
   {
     title: 'Analytics',
