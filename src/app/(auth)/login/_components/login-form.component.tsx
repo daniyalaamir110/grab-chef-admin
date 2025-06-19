@@ -8,11 +8,31 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLogin } from '../_mutations/login.mutation';
+import axios from 'axios';
+import { BASE_API_URL } from '@/common/constants';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { setCookie } from 'cookies-next/client';
 
 const LoginForm = () => {
   const router = useRouter();
+  const [isPending, setPending] = useState(false);
 
-  const { mutate, isPending } = useLogin();
+  const handleLoginForm = async (data: any) => {
+    try {
+      setPending(true);
+      const response = await axios.post(`${BASE_API_URL}/admin/login`, data);
+      const resData = await response.data;
+      console.log('===resData===>', JSON.stringify(resData, null, 1));
+      setCookie('token', resData?.token);
+      router.push('/dashboard');
+      setPending(false);
+    } catch (error) {
+      toast(error?.message);
+    } finally {
+      setPending(false);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -20,16 +40,10 @@ const LoginForm = () => {
       password: '',
     },
     validationSchema: loginSchema,
-    onSubmit: values => {
+    onSubmit: async values => {
       console.log(values);
-      console.log("first")
-      router.push('/dashboard')
-
-      // mutate(values, {
-      //   onSuccess() {
-      //     router.push('/contracts/all');
-      //   },
-      // });
+      console.log('first');
+      await handleLoginForm(values);
     },
   });
   return (
