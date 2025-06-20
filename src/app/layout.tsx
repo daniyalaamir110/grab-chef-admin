@@ -37,7 +37,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Letzfair',
+  title: 'Grab Chef',
   description: 'Centralized platform for event management',
   icons: {
     icon: '/favicon.ico',
