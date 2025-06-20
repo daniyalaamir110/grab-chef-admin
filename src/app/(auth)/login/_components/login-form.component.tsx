@@ -2,17 +2,14 @@
 import { loginSchema } from '@/app/(auth)/login/_schemas/login.schema';
 import Input from '@/common/components/form-components/input.component';
 import PasswordInput from '@/common/components/form-components/password-input.component';
-import { ROUTES } from '@/common/constants/routes';
-import { Button } from '@/components/ui/button';
-import { useFormik } from 'formik';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useLogin } from '../_mutations/login.mutation';
-import axios from 'axios';
 import { BASE_API_URL } from '@/common/constants';
+import { Button } from '@/components/ui/button';
+import axios from 'axios';
+import { setCookie } from 'cookies-next/client';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { setCookie } from 'cookies-next/client';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -27,7 +24,7 @@ const LoginForm = () => {
       setCookie('token', resData?.token);
       router.push('/dashboard');
       setPending(false);
-    } catch (error) {
+    } catch (error: any) {
       toast(error?.message);
     } finally {
       setPending(false);
@@ -36,8 +33,8 @@ const LoginForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: 'alam@admin.com',
+      password: '1234567890',
     },
     validationSchema: loginSchema,
     onSubmit: async values => {
