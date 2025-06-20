@@ -27,7 +27,7 @@ const LoginForm = () => {
       setCookie('token', resData?.token);
       router.push('/dashboard');
       setPending(false);
-    } catch (error) {
+    } catch (error:any) {
       toast(error?.message);
     } finally {
       setPending(false);
