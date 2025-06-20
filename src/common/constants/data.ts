@@ -92,29 +92,29 @@ export const eventData = {
   location: 'Hall A, Tech Expo Center',
 };
 
-export const analyticsData = [
+export const analyticsData = (data: any) => [
   {
     title: 'Total Menus',
     image: '/assets/icons/menu.svg',
-    value: '50',
+    value: `${data['totalMenu']}`,
     progress: 50,
   },
   {
-    title: 'Total Revenue',
+    title: 'Total Chef',
     image: '/assets/icons/revenue.svg',
-    value: '$ 100',
+    value: ` ${data['totalChef']}`,
     progress: 100,
   },
   {
     title: 'Total Customers',
     image: '/assets/icons/customer.svg',
-    value: '20',
+    value: `${data['totalCustomer']}`,
     progress: 20,
   },
   {
     title: 'Total Orders',
     image: '/assets/icons/order.svg',
-    value: '300',
+    value: `${data['totalOrders']}`,
     progress: 300,
   },
 ];
