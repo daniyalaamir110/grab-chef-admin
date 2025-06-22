@@ -8,6 +8,7 @@ export const urls = {
     order: {
         getOrders: 'admin/get-events',
         getOrder: (id:string) => 'admin/get-event/' + id,
+        getAttendence: (id:string) => `admin/get-event-chef-location/${id}`
 
     }
 }

@@ -19,6 +19,10 @@ import { useParams } from 'next/navigation';
 
 const OrderTracking = () => {
   const [details, setDetails ] = useState<any>(null)
+  const [attendence, setAttendence ] = useState<any>({
+    attendance:[],
+    durationMinutes:0
+  })
   const params = useParams()
   const orderData = {
     orderId: "#001234124",
@@ -73,11 +77,14 @@ const OrderTracking = () => {
     }
   };
 
+  console.log(details,'--->')
   const getOrderDetails = async () => {
     try {
       if(params?.slug){
         const data = await getData(urls.order.getOrder(params?.slug as string))
-        console.log(data,'---->')
+        const attendenceData = await getData(urls.order?.getAttendence(params?.slug as string))
+        setAttendence(attendenceData)
+        console.log(attendence,'---->')
         setDetails(data?.event)
       }
     } catch (error:any) {
@@ -86,10 +93,10 @@ const OrderTracking = () => {
     }
   }
 
-  // useEffect(() => {
-  //   if(params?.slug)
-  //     getOrderDetails()
-  // },[params])
+  useEffect(() => {
+    if(params?.slug)
+      getOrderDetails()
+  },[params])
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -107,7 +114,7 @@ const OrderTracking = () => {
         {/* Order Status Timeline */}
         <Card className="mb-6">
           <CardContent className="p-6">
-            <OrderStatusTimeline currentStatus="chef-on-way" />
+            <OrderStatusTimeline data={details} currentStatus={''}/>
           </CardContent>
         </Card>
 
@@ -117,14 +124,14 @@ const OrderTracking = () => {
             {/* Delivery Map */}
             <div>
               <div className="p-0">
-                <DeliveryMap />
+                <DeliveryMap data={attendence?.attendance}/>
               </div>
             </div>
 
             {/* Customer Info */}
             <div className='grid grid-cols-3 gap-3'>
               <div className="lg:col-span-2 col-span-full space-y-6">
-                <CustomerInfo customer={orderData.customer} />
+                <CustomerInfo data={details} />
 
               </div>
               <div className='lg:col-span-1 col-span-full'>
@@ -136,14 +143,14 @@ const OrderTracking = () => {
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">Estimated Time</p>
-                        <p className="text-lg font-bold text-gray-900">{orderData?.estimatedTime}</p>
+                        <p className="text-lg font-bold text-gray-900">{attendence?.durationMinutes || 0}</p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               </div>
               <div className='col-span-full'>
-                <OrderItems />
+                <OrderItems data={details}/>
 
               </div>
             </div>
@@ -157,7 +164,7 @@ const OrderTracking = () => {
             {/* Order Items */}
 
             {/* Order Analytics */}
-            <OrderAnalytics />
+            {/* <OrderAnalytics data={details} /> */}
           </div>
         </div>
       </div>

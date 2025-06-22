@@ -24,14 +24,14 @@ export default function CustomerOrderCard({data}:any) {
           <div className="bg-yellow-400 p-2 rounded-full">
             <Phone size={16} className="text-black" />
           </div>
-          <span className="font-medium text-gray-900">{data?.customer?.phoneNumber}</span>
+          <span className="font-medium text-gray-900">{data?.customer?.phoneNumber || '-'}</span>
         </div>
         <div className="flex items-center gap-3 text-sm">
           <div className="bg-yellow-400 p-2 rounded-full">
             <MapPin size={16} className="text-black" />
           </div>
           <span className="font-medium text-gray-900">
-            {data?.fullAddress?.name}
+            {data?.fullAddress?.name || '-'}
           </span>
         </div>
         <div className="flex items-center gap-3 text-sm">
@@ -50,7 +50,7 @@ export default function CustomerOrderCard({data}:any) {
 
       {/* Order List */}
       <div className="space-y-3 text-sm text-gray-900">
-        <div className="flex justify-between items-center border-t gap-2 border-gray-100 pt-2">
+        {/* <div className="flex justify-between items-center border-t gap-2 border-gray-100 pt-2">
           <div>
             <span className="font-bold">1x</span> Bacon Cheese Burger
           </div>
@@ -65,22 +65,26 @@ export default function CustomerOrderCard({data}:any) {
             <span className="font-bold">2x</span> French Fries
           </div>
           <div className="font-semibold text-xs">Rs. 500</div>
-        </div>
+        </div> */}
+        {data?.menuItems?.length > 0 && data?.menuItems?.map((item:any,index:number) => item?.menuItemId ? (
+            <div key={index} className="flex justify-between items-center gap-2 text-gray-400">
+              <div className="flex items-center gap-2">
+                <span >{item?.quantity}x {item?.menuItemId?.title}</span>
+              </div>
+              {/* <div className="text-[10px] text-center font-semibold px-2 py-0.5 bg-gray-300 rounded-full">SOLD OUT</div> */}
+              <div className=" text-xs">Rs. {item?.menuItemId?.price}</div>
+            </div>
 
-        <div className="flex justify-between items-center gap-2 text-gray-400">
-          <div className="flex items-center gap-2">
-            <span className="line-through">2x Normal Cheese Burger</span>
-          </div>
-        <div className="text-[10px] text-center font-semibold px-2 py-0.5 bg-gray-300 rounded-full">SOLD OUT</div>
-          <div className="line-through text-xs">Rs. 800</div>
-        </div>
+        ):null)}
       </div>
 
       {/* Subtotal & Delivery */}
       <div className="text-sm space-y-1 border-t border-gray-200 pt-2">
         <div className="flex justify-between">
           <span className="font-semibold">Subtotal</span>
-          <span className=" text-gray-900 font-semibold">Rs. 1500</span>
+            <span className="text-gray-900 font-semibold">
+              Rs. {data?.menuItems?.reduce((acc: number, item: any) => acc + (item?.menuItemId?.price || 0), 0)}
+            </span>
         </div>
         <div className="flex justify-between">
           <span className="font-semibold">Delivery Fee</span>
@@ -91,7 +95,7 @@ export default function CustomerOrderCard({data}:any) {
       {/* Total */}
       <div className="flex justify-between items-center border-t border-gray-300 pt-4">
         <h3 className="text-lg font-bold">Total <span className="text-sm font-normal text-gray-500">(Incl. Tax)</span></h3>
-        <span className="text-lg font-bold">Rs. 1500</span>
+        <span className="text-lg font-bold">Rs. {data?.menuItems?.reduce((acc: number, item: any) => acc + (item?.menuItemId?.price || 0), 0) + 400}</span>
       </div>
     </div>
   );

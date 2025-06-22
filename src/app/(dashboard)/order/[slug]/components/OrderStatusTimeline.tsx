@@ -1,13 +1,15 @@
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { CheckCircle, Clock, ChefHat, Truck, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface OrderStatusTimelineProps {
   currentStatus: string;
+  data:any
 }
 
-const OrderStatusTimeline = ({ currentStatus }: OrderStatusTimelineProps) => {
+const OrderStatusTimeline = ({ currentStatus, data }: OrderStatusTimelineProps) => {
+  //bhai iskay status db walay rakhdio khud chal jaiga
   const steps = [
     {
       id: 'order-created',
@@ -32,7 +34,7 @@ const OrderStatusTimeline = ({ currentStatus }: OrderStatusTimelineProps) => {
       active: true
     },
     {
-      id: 'chef-served',
+      id: 'completed',
       title: 'Chef Served',
       time: '',
       icon: Truck,
@@ -47,19 +49,21 @@ const OrderStatusTimeline = ({ currentStatus }: OrderStatusTimelineProps) => {
     }
   ];
 
+  const currentIndex = useMemo(() => steps?.findIndex(step => step?.id == currentStatus), [currentStatus])
+
   return (
     <div className="flex items-start justify-between relative">
       {/* Progress Line */}
       <div className="absolute top-8 left-0 right-0 h-0.5 bg-gray-200 z-0">
         <div 
           className="h-full bg-yellow-400 transition-all duration-500"
-          style={{ width: '60%' }}
+          style={{ width: (currentIndex/4) * 100 + '%' }}
         />
       </div>
 
       {steps.map((step, index) => {
         const Icon = step.icon;
-        const isCompleted = step.completed;
+        const isCompleted = index <= currentIndex;
         const isActive = step.active;
         
         return (
@@ -67,10 +71,10 @@ const OrderStatusTimeline = ({ currentStatus }: OrderStatusTimelineProps) => {
             <div
               className={cn(
                 "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300",
-                isCompleted || isActive
+                isCompleted
                   ? "bg-yellow-400 text-black"
                   : "bg-white border border-gray-200 text-gray-400",
-                isActive && "border bg-white text-red-400 border-red-400"
+                !isCompleted && "border bg-white text-red-400 border-red-400"
               )}
             >
               <Icon className="h-6 w-6" />
@@ -78,13 +82,11 @@ const OrderStatusTimeline = ({ currentStatus }: OrderStatusTimelineProps) => {
             <div className="mt-3 text-center max-w-[100px]">
               <p className={cn(
                 "text-sm font-medium",
-                isCompleted || isActive ? "text-gray-900" : "text-gray-500"
+                isCompleted ? "text-gray-900" : "text-gray-500"
               )}>
                 {step.title}
               </p>
-              {step.time && (
-                <p className="text-xs text-gray-500 mt-1">{step.time}</p>
-              )}
+            
             </div>
           </div>
         );
