@@ -33,7 +33,7 @@ const LoginForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: 'alam@admin.com',
+      email: 'admin@grabchef.com',
       password: '1234567890',
     },
     validationSchema: loginSchema,
