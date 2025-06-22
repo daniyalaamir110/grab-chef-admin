@@ -1,9 +1,10 @@
 // api.ts
+import { BASE_API_URL } from '@/common/constants';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 // Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://51.21.231.42:3000/api/', // Change this
+  baseURL: `${BASE_API_URL}/`, // Change this
   headers: {
     'Content-Type': 'application/json',
   },
@@ -16,7 +17,10 @@ interface ApiError {
 }
 
 // Generic GET request
-export function getData<T = any>(url: string, params: Record<string, any> = {}): Promise<T> {
+export function getData<T = any>(
+  url: string,
+  params: Record<string, any> = {},
+): Promise<T> {
   return new Promise((resolve, reject) => {
     axiosInstance
       .get<T>(url, { params })
