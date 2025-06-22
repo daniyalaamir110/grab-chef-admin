@@ -36,16 +36,10 @@ const ChefProfileCard = ({ isOpen, onClose, chef }: ChefProfileCardProps) => {
       onOpenChange={onClose}
     >
       <DialogContent className=' w-full max-h-[90vh] overflow-y-auto p-0'>
+        <DialogTitle  className="DialogTitle text-2xl pl-8 pt-4">Profile</DialogTitle>
         <div className='relative bg-white rounded-lg'>
           {/* Close Button */}
-          <Button
-            variant='ghost'
-            size='icon'
-            onClick={onClose}
-            className='absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-red-100 hover:bg-red-200 text-red-600'
-          >
-            <X size={16} />
-          </Button>
+         
 
           {/* Profile Header */}
           <div className='p-6 pb-4'>
@@ -102,7 +96,7 @@ const ChefProfileCard = ({ isOpen, onClose, chef }: ChefProfileCardProps) => {
                 </label>
                 <div className=' rounded-md px-3 py-2'>
                   <div className='flex gap-1'>
-                    {chef?.chef?.achievements?.map(
+                    {chef?.chef?.achievements?.length > 0 ? chef?.chef?.achievements?.map(
                       (achievement: any, index: number) => (
                         <div
                           key={index}
@@ -121,6 +115,8 @@ const ChefProfileCard = ({ isOpen, onClose, chef }: ChefProfileCardProps) => {
                               : '🥉'}
                         </div>
                       ),
+                    ) : (
+                      <p>-</p>
                     )}
                   </div>
                 </div>

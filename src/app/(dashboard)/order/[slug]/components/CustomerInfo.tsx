@@ -4,37 +4,39 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Phone, MapPin, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface CustomerInfoProps {
-  customer: {
-    name: string;
-    phone: string;
-    address: string;
-    date: string;
-    time: string;
-  };
+  data:any;
 }
 
-const CustomerInfo = ({ customer }: CustomerInfoProps) => {
+const CustomerInfo = ({ data }: CustomerInfoProps) => {
   return (
     <Card>
       <CardContent className="p-6">
         <div className="flex items-start gap-2 w-full">
           <div className='flex justify-between flex-wrap gap-2 w-full items-center'>
             <div className='flex gap-2 items-center w-fit'>
-              <Avatar className="h-24 w-24">
-                <AvatarFallback className="bg-blue-500 text-white font-semibold">
-                  {customer.name.split(' ').map(n => n[0]).join('')}
-                </AvatarFallback>
-              </Avatar>
+              {
+                data?.chef?.profilePicture ? (
+                  <img src={data?.chef?.profilePicture} alt='asd' className='rounded-full w-20 h-20' width={20} height={20}/>
+                ) : (
+                  <Avatar className="h-24 w-24">
+                    <AvatarFallback className="bg-blue-500 text-white font-semibold">
+                      {data?.chef.firstName.split(' ').map((n:any) => n[0]).join('')}
+                    </AvatarFallback>
+                  </Avatar>
+                )
+              }
               <div>
                 <p className='text-xs'>Professional Chef</p>
-                <p className='text-lg'>Gordon Ramsay</p>
-                <p className='text-icon-hex'>ID 412455</p>
+                <p className='text-lg'>{data?.chef.firstName} {data?.chef.lastName}</p>
+                <p className='text-icon-hex'>ID {data?.chef?._id?.substr(0,4)}</p>
               </div>
             </div>
             <div className='md:w-fit w-full'>
-              <Button className='bg-red-200 rounded-4xl w-full'>View More</Button>
+              <Link href={`/chef/${data?.chef?._id}`} className='p-3 text-white hover:text-black hover:bg-white border bg-red-200 rounded-4xl w-full'>View More</Link>
             </div>
           </div>
         </div>

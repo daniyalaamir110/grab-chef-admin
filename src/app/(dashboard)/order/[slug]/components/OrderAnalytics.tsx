@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { FC } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -10,7 +10,11 @@ const data = [
 
 const COLORS = ['#4AD556', '#FFC71F', '#FF0000'];
 
-const StyledPieChart = () => {
+interface IProps {
+  apiData:any
+}
+
+const StyledPieChart:FC<IProps> = ({apiData}) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-sm mx-auto">
       <h2 className="text-lg font-semibold mb-4 text-center text-gray-800">User Groups Distribution</h2>

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search, Filter, MoreHorizontal, Calendar, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,93 +29,32 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { toast } from "sonner";
+import { urls } from "@/api/urls";
+import { getData } from "@/api/api";
+import moment from "moment";
+import { useRouter } from "next/navigation";
 
 const Orders = () => {
+  const router = useRouter()
   const [currentPage, setCurrentPage] = useState(1);
+  const [orders, setOrders] = useState([]);
   const [selected, setSelected] = useState<string[]>([]);
 
-  const orders = [
-    {
-      id: "#552211",
-      date: "26 March 2020, 12:42 AM",
-      customer: "Olivia Shine",
-      location: "35 Station Road London",
-      amount: "$82.46",
-      status: "Delivered"
-    },
-    {
-      id: "#552351",
-      date: "26 March 2020, 12:42 AM",
-      customer: "James Witcwicky",
-      location: "Corner Street 5th London",
-      amount: "$164.52",
-      status: "Pending"
-    },
-    {
-      id: "#552323",
-      date: "26 March 2020, 12:42 AM",
-      customer: "Veronica",
-      location: "21 King Street London",
-      amount: "$74.92",
-      status: "Pending"
-    },
-    {
-      id: "#552375",
-      date: "26 March 2020, 12:12 AM",
-      customer: "Emilia Johanson",
-      location: "67 St. John's Road London",
-      amount: "$251.16",
-      status: "PENDING"
-    },
-    {
-      id: "#552368",
-      date: "26 March 2020, 12:42 AM",
-      customer: "Jessica Wong",
-      location: "11 Church Road London",
-      amount: "$24.17",
-      status: "CANCELLED"
-    },
-    {
-      id: "#552349",
-      date: "26 March 2020, 12:42 AM",
-      customer: "Roberto Carlo",
-      location: "544 Manor Road London",
-      amount: "$34.41",
-      status: "Cancelled"
-    },
-    {
-      id: "#552354",
-      date: "26 March 2020, 01:42 PM",
-      customer: "David Horison",
-      location: "981 St. John's Road London",
-      amount: "$24.55",
-      status: "Pending"
-    },
-    {
-      id: "#552397",
-      date: "26 March 2020, 12:42 AM",
-      customer: "Franky Sintoang",
-      location: "6 The Avenue London",
-      amount: "$45.86",
-      status: "Pending"
-    },
-    {
-      id: "#552356",
-      date: "26 March 2020, 12:42 AM",
-      customer: "Randy Greenlee",
-      location: "32 The Green London",
-      amount: "$44.99",
-      status: "Delivered"
-    },
-    {
-      id: "#552322",
-      date: "26 March 2020, 12:42 AM",
-      customer: "Samantha Balko",
-      location: "79 The Drive London",
-      amount: "$22.18",
-      status: "Delivered"
+  const getOrders = async () => {
+    try {
+      const data = await getData(urls.order.getOrders)
+      console.log(data,'----orders')
+      setOrders(data?.events)
+    } catch (error:any) {
+      console.log(error?.message)
+      toast(error?.message)
     }
-  ];
+  }
+
+  useEffect(() => {
+    getOrders()
+  }, [])
 
   const getStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
@@ -188,16 +127,16 @@ const Orders = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {orders.map((order, index) => (
-                <TableRow key={order.id} className={selected.includes(order.id) ? " shadow-md shadow-red-300 border-l-4 border-l-red-500" : ""}>
-                  <TableCell className="font-medium text-blue-600"><Checkbox onCheckedChange={() => handleSelect(order.id)} /></TableCell>
+              {orders.map((order:any, index) => (
+                <TableRow key={order._id} className={selected.includes(order.id) ? " shadow-md shadow-red-300 border-l-4 border-l-red-500" : ""}>
+                  <TableCell className="font-medium text-blue-600"><Checkbox onCheckedChange={() => handleSelect(order._id)} /></TableCell>
                   <TableCell className="font-medium text-blue-600">
-                    <Link href={`/order/${order.id?.replace('#','')}`}>{order.id}</Link>
+                    <Link href={`/order/${order._id?.replace('#','')}`}>#{order._id?.substr(order._id.length - 4)}</Link>
                   </TableCell>
-                  <TableCell className="text-gray-600">{order.date}</TableCell>
-                  <TableCell className="text-gray-900">{order.customer}</TableCell>
-                  <TableCell className="text-gray-600">{order.location}</TableCell>
-                  <TableCell className="font-medium">{order.amount}</TableCell>
+                  <TableCell className="text-gray-600">{moment(order?.date).format('YYYY/DD/MM')}</TableCell>
+                  <TableCell className="text-gray-900">{order?.customer?.firstName} {order.customer?.lastName || ''}</TableCell>
+                  <TableCell className="text-gray-600">{order.fullAddress?.name || '-'}</TableCell>
+                  <TableCell className="font-medium">{order.totalAmount || 0}</TableCell>
                   <TableCell>{getStatusBadge(order.status)}</TableCell>
                   <TableCell>
                     <DropdownMenu>
@@ -207,7 +146,7 @@ const Orders = () => {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View Details</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => router?.push(`/order/${order._id?.replace('#','')}`)}> <Link href={`/order/${order._id?.replace('#','')}`}>View Details</Link></DropdownMenuItem>
                         <DropdownMenuItem>Edit</DropdownMenuItem>
                         <DropdownMenuItem>Delete</DropdownMenuItem>
                       </DropdownMenuContent>
@@ -221,7 +160,7 @@ const Orders = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between mt-6">
+      {/* <div className="flex items-center justify-between mt-6">
         <p className="text-sm text-gray-600">
           Showing <span className="font-bold">10</span> from <span className="font-bold">46</span> data
         </p>
@@ -252,7 +191,7 @@ const Orders = () => {
             </PaginationContent>
           </Pagination>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
