@@ -1,5 +1,6 @@
 
-import React from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,8 +12,14 @@ import CustomerInfo from './CustomerInfo';
 import OrderItems from './OrderItems';
 import OrderAnalytics from './OrderAnalytics';
 import CustomerOrderCard from './CustomerOrderCard';
+import { toast } from 'sonner';
+import { getData } from '@/api/api';
+import { urls } from '@/api/urls';
+import { useParams } from 'next/navigation';
 
 const OrderTracking = () => {
+  const [details, setDetails ] = useState<any>(null)
+  const params = useParams()
   const orderData = {
     orderId: "#001234124",
     status: "Chef on the way",
@@ -66,13 +73,31 @@ const OrderTracking = () => {
     }
   };
 
+  const getOrderDetails = async () => {
+    try {
+      if(params?.slug){
+        const data = await getData(urls.order.getOrder(params?.slug as string))
+        console.log(data,'---->')
+        setDetails(data?.event)
+      }
+    } catch (error:any) {
+      console.log(error?.message)
+      toast(error?.message)
+    }
+  }
+
+  // useEffect(() => {
+  //   if(params?.slug)
+  //     getOrderDetails()
+  // },[params])
+
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Order ID {orderData.orderId}</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Order ID #{details?._id?.substr(details?._id.length-4)}</h1>
           </div>
           <div className="flex items-center gap-2">
             <p>Order Details/ Customers</p>
@@ -111,7 +136,7 @@ const OrderTracking = () => {
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">Estimated Time</p>
-                        <p className="text-lg font-bold text-gray-900">{orderData.estimatedTime}</p>
+                        <p className="text-lg font-bold text-gray-900">{orderData?.estimatedTime}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -127,7 +152,7 @@ const OrderTracking = () => {
           {/* Right Column - Order Details */}
           <div className="space-y-6 lg:col-span-1 col-span-full">
             {/* Estimated Time */}
-            <CustomerOrderCard />
+            <CustomerOrderCard data={details}/>
 
             {/* Order Items */}
 

@@ -42,6 +42,8 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { BASE_API_URL } from '@/common/constants';
 import { getCookie } from 'cookies-next/client';
+import { getData } from '@/api/api';
+import { urls } from '@/api/urls';
 
 const topChefs = [
   { id: 1, name: 'Gordon Ramsay', rating: 5.0, orders: '89k', avatar: 'GR' },
@@ -105,6 +107,10 @@ const DashboardView = () => {
     totalCustomer: 0,
     totalOrders: 0,
   });
+  const [dishesData, setDishesData] = useState({
+    mostOrderedDishes: [],
+    mostPopularCuisines: []
+  });
   const [loading, setLoading] = useState(false);
 
   const getDashboardData = useCallback(async () => {
@@ -127,8 +133,20 @@ const DashboardView = () => {
     }
   }, []);
 
+  const getMenuInsight = async () => {
+    try {
+      const data = await getData(urls.dashboard.getMenuInsight)
+      console.log(data,'---menu insight')
+      setDishesData(data)
+    } catch (error:any) {
+      console.log(error)
+        toast(error?.message);
+    }
+  }
+
   useEffect(() => {
     getDashboardData();
+    getMenuInsight()
   }, []);
 
   return (
@@ -155,9 +173,9 @@ const DashboardView = () => {
           chartData={areaChartData}
           chartConfig={areaChartConfig}
         />
-        <div className='col-span-1 md:col-span-2'>
+        {/* <div className='col-span-1 md:col-span-2'>
           <AnalyticsBarChart />
-        </div>
+        </div> */}
 
         <div className='grid col-span-full grid-cols-1 lg:grid-cols-4 gap-6'>
           {/* Left Column */}
@@ -168,7 +186,6 @@ const DashboardView = () => {
 
           {/* Middle Column */}
           <div className='xl:col-span-3 col-span-full  space-y-6'>
-            <CustomerMap />
             <div className='grid gap-6 grid-cols-3'>
               <div className='xl:col-span-1 col-span-full'>
                 <CustomersList />

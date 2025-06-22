@@ -9,26 +9,6 @@ import { toast } from 'sonner';
 import { AvatarImage } from '@radix-ui/react-avatar';
 
 const TopRatedChefs = () => {
-  const topChefs = [
-    { id: 1, name: 'Gordon Ramsay', rating: 5.0, orders: '89k', avatar: 'GR' },
-    { id: 2, name: 'Gordon Ramsay', rating: 5.0, orders: '89k', avatar: 'GR' },
-    { id: 3, name: 'Alain Ducasse', rating: 5.0, orders: '89k', avatar: 'AD' },
-    {
-      id: 4,
-      name: 'Massimo Bottura',
-      rating: 5.0,
-      orders: '89k',
-      avatar: 'MB',
-    },
-    {
-      id: 5,
-      name: 'Heston Blumenthal',
-      rating: 5.0,
-      orders: '89k',
-      avatar: 'HB',
-    },
-  ];
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 

@@ -1,7 +1,8 @@
 import { Phone, Calendar, MapPin } from 'lucide-react';
+import moment from 'moment';
 import Image from 'next/image';
 
-export default function CustomerOrderCard() {
+export default function CustomerOrderCard({data}:any) {
   return (
     <div className=" w-full mx-auto bg-white rounded-xl shadow-md p-6 font-sans space-y-4">
       {/* Header */}
@@ -12,8 +13,8 @@ export default function CustomerOrderCard() {
           className="w-12 h-12 rounded-2xl object-cover"
         />
         <div>
-          <h2 className="text-base font-semibold text-gray-900">Usama Muzammil</h2>
-          <p className="text-xs text-red-600">Customer ID : 501923</p>
+          <h2 className="text-base font-semibold text-gray-900">{data?.customer?.firstName} {data?.customer?.lastName || ''}</h2>
+          <p className="text-xs text-red-600">Customer ID : {data?.customer?._id?.substr(data?.customer?._id?.length - 4)}</p>
         </div>
       </div>
 
@@ -23,28 +24,28 @@ export default function CustomerOrderCard() {
           <div className="bg-yellow-400 p-2 rounded-full">
             <Phone size={16} className="text-black" />
           </div>
-          <span className="font-medium text-gray-900">+51 5125 626 77</span>
+          <span className="font-medium text-gray-900">{data?.customer?.phoneNumber}</span>
         </div>
         <div className="flex items-center gap-3 text-sm">
           <div className="bg-yellow-400 p-2 rounded-full">
             <MapPin size={16} className="text-black" />
           </div>
           <span className="font-medium text-gray-900">
-            DHA Phase<br />5, Commercial Bukhari
+            {data?.fullAddress?.name}
           </span>
         </div>
         <div className="flex items-center gap-3 text-sm">
           <div className="bg-yellow-400 p-2 rounded-full">
             <Calendar size={16} className="text-black" />
           </div>
-          <span className="font-medium text-gray-900">25 July 2024</span>
+          <span className="font-medium text-gray-900">{moment(data?.updatedAt).format('DD MMM YYYY')}</span>
         </div>
       </div>
 
       {/* Time Row */}
       <div className="flex justify-between text-sm font-medium pt-2">
         <span className="text-gray-500">Time</span>
-        <span className="text-gray-900">17:00</span>
+        <span className="text-gray-900">{data?.time}</span>
       </div>
 
       {/* Order List */}

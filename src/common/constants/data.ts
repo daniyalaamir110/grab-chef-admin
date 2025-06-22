@@ -41,11 +41,11 @@ export const sidebarItems = [
     url: '/review',
     icon: review,
   },
-  {
-    title: 'Task',
-    url: '#',
-    icon: task,
-  },
+  // {
+  //   title: 'Task',
+  //   url: '#',
+  //   icon: task,
+  // },
   {
     title: 'Chef',
     url: '/chef-document',
