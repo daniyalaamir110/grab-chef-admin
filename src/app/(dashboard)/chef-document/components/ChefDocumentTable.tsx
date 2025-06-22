@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import {
   Table,
   TableBody,
@@ -7,8 +7,12 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import ChefDocumentCard from './ChefDocumentCard';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ChefProfileCard from './ChefProfileCard';
+import { getCookie } from 'cookies-next/client';
+import axios from 'axios';
+import { BASE_API_URL } from '@/common/constants';
+import { toast } from 'sonner';
 
 interface ChefDocument {
   id: string;
@@ -20,79 +24,39 @@ interface ChefDocument {
 }
 
 const ChefDocumentTable = () => {
-
   const [selectedChef, setSelectedChef] = useState<ChefDocument | null>(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const documents: ChefDocument[] = [
-    {
-      id: "#C-004560",
-      avatar: "''",
-      document: "New Document",
-      joinDate: "26 March 2020, 12:42 AM",
-      chefName: "Veronica",
-      location: "21 King Street London"
-    },
-    {
-      id: "#C-004560",
-      avatar: "",
-      document: "New Document",
-      joinDate: "26 March 2020, 12:42 AM",
-      chefName: "Veronica",
-      location: "21 King Street London"
-    },
-    {
-      id: "#C-004560",
-      avatar: "''",
-      document: "New Document",
-      joinDate: "26 March 2020, 12:42 AM",
-      chefName: "Veronica",
-      location: "21 King Street London"
-    },
-    {
-      id: "#C-004560",
-      avatar: "''",
-      document: "New Document",
-      joinDate: "26 March 2020, 12:42 AM",
-      chefName: "Veronica",
-      location: "21 King Street London"
-    },
-    {
-      id: "#C-004560",
-      avatar: "''",
-      document: "New Document",
-      joinDate: "26 March 2020, 12:42 AM",
-      chefName: "Veronica",
-      location: "21 King Street London"
-    },
-    {
-      id: "#C-004560",
-      avatar: "''",
-      document: "New Document",
-      joinDate: "26 March 2020, 12:42 AM",
-      chefName: "Veronica",
-      location: "21 King Street London"
-    },
-    {
-      id: "#C-004560",
-      avatar: "''",
-      document: "New Document",
-      joinDate: "26 March 2020, 12:42 AM",
-      chefName: "Veronica",
-      location: "21 King Street London"
-    },
-    {
-      id: "#C-004560",
-      avatar: "''",
-      document: "New Document",
-      joinDate: "26 March 2020, 12:42 AM",
-      chefName: "Veronica",
-      location: "21 King Street London"
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const getChefs = useCallback(async () => {
+    try {
+      setLoading(true);
+      const token = getCookie('token');
+      const response = await axios.get(`${BASE_API_URL}/admin/get-chefs`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(
+        '===response.data===>',
+        JSON.stringify(response.data, null, 1),
+      );
+      setData(response?.data?.chef);
+    } catch (error: any) {
+      toast(error?.message);
+    } finally {
+      setLoading(false);
     }
-  ];
+  }, []);
+
+  useEffect(() => {
+    getChefs();
+  }, []);
 
   const handleViewDetails = (documentId: string) => {
-    const chef = documents.find(doc => `${doc.id}-${documents.indexOf(doc)}` === documentId);
+    console.log({ documentId });
+    const chef = data.find(doc => doc?._id === documentId);
+    console.log(chef);
     if (chef) {
       setSelectedChef(chef);
       setIsProfileOpen(true);
@@ -104,48 +68,53 @@ const ChefDocumentTable = () => {
   };
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className='w-full bg-white rounded-lg shadow-sm border border-gray-200'>
       {/* Header */}
-      
+
       {/* Scrollable Table Container */}
-      <div className="w-full overflow-x-auto">
-        <div className="min-w-[1050px]">
+      <div className='w-full overflow-x-auto'>
+        <div className='min-w-[1050px]'>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[120px]"></TableHead>
-                <TableHead className="w-[120px]">Chef ID</TableHead>
-                <TableHead className="w-[250px]">Chef Document</TableHead>
-                <TableHead className="w-[200px]">Join Date</TableHead>
-                <TableHead className="w-[150px]">Chef Name</TableHead>
-                <TableHead className="w-[200px]">Location</TableHead>
-                <TableHead className="w-[150px] text-right">Actions</TableHead>
+                <TableHead className='w-[120px]'></TableHead>
+                <TableHead className='w-[120px]'>Chef ID</TableHead>
+                <TableHead className='w-[250px]'>Chef Document</TableHead>
+                <TableHead className='w-[200px]'>Join Date</TableHead>
+                <TableHead className='w-[150px]'>Chef Name</TableHead>
+                <TableHead className='w-[200px]'>Location</TableHead>
+                <TableHead className='w-[150px] text-right'>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {documents.map((doc, index) => (
+              {data.map((doc, index) => (
                 <ChefDocumentCard
-                  key={`${doc.id}-${index}`}
-                  id={doc.id}
-                  avatar={doc.avatar}
-                  document={doc.document}
-                  joinDate={doc.joinDate}
-                  chefName={doc.chefName}
-                  location={doc.location}
-                  onViewDetails={() => handleViewDetails(`${doc.id}-${index}`)}
-                  onDelete={() => handleDelete(`${doc.id}-${index}`)}
+                  key={`${doc._id}-${index}`}
+                  id={doc._id}
+                  avatar={doc?.profilePicture || ''}
+                  document={doc?.certificates}
+                  joinDate={doc?.createdAt}
+                  chefName={`${doc.firstName} ${doc.lastName}`}
+                  location={
+                    Array.isArray(doc.chef?.locations) &&
+                    doc.chef?.locations.length
+                      ? doc.chef?.locations[0].name
+                      : "N'A"
+                  }
+                  onViewDetails={() => handleViewDetails(doc._id)}
+                  onDelete={() => handleDelete(`${doc.id}`)}
                 />
               ))}
             </TableBody>
           </Table>
         </div>
 
-         {selectedChef && (
-            <ChefProfileCard
+        {selectedChef && (
+          <ChefProfileCard
             isOpen={isProfileOpen}
             onClose={() => setIsProfileOpen(false)}
             chef={selectedChef}
-        />
+          />
         )}
       </div>
     </div>

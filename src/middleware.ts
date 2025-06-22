@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { isTokenExpired } from './lib/checkTokenExpiry';
 
 export function middleware(req: NextRequest) {
-  const token = req.cookies.get('accessToken')?.value;
+  const token = req.cookies.get('token')?.value;
 
   const { pathname } = req.nextUrl.clone();
 
