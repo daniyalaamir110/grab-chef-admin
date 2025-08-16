@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
 import './globals.css';
 import localFont from 'next/font/local';
+import { Toaster } from 'sonner';
 
 const sfProDisplay = localFont({
   src: [
@@ -75,7 +76,10 @@ export default function RootLayout({
         className={`${sfProDisplay.variable} ${dmSans.variable} antialiased`}
         cz-shortcut-listen='true'
       >
-        <RootProvider>{children}</RootProvider>
+        <RootProvider>
+          <Toaster />
+          {children}
+        </RootProvider>
       </body>
     </html>
   );

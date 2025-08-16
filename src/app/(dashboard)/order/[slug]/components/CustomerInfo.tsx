@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -8,35 +7,52 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 interface CustomerInfoProps {
-  data:any;
+  data: any;
 }
 
 const CustomerInfo = ({ data }: CustomerInfoProps) => {
   return (
     <Card>
-      <CardContent className="p-6">
-        <div className="flex items-start gap-2 w-full">
+      <CardContent className='p-6'>
+        <div className='flex items-start gap-2 w-full'>
           <div className='flex justify-between flex-wrap gap-2 w-full items-center'>
             <div className='flex gap-2 items-center w-fit'>
-              {
-                data?.chef?.profilePicture ? (
-                  <img src={data?.chef?.profilePicture} alt='asd' className='rounded-full w-20 h-20' width={20} height={20}/>
-                ) : (
-                  <Avatar className="h-24 w-24">
-                    <AvatarFallback className="bg-blue-500 text-white font-semibold">
-                      {data?.chef.firstName.split(' ').map((n:any) => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                )
-              }
+              {data && data?.chef?.profilePicture ? (
+                <img
+                  src={data && data?.chef?.profilePicture}
+                  alt='asd'
+                  className='rounded-full w-20 h-20'
+                  width={20}
+                  height={20}
+                />
+              ) : (
+                <Avatar className='h-24 w-24'>
+                  <AvatarFallback className='bg-blue-500 text-white font-semibold'>
+                    {data &&
+                      data?.chef?.firstName
+                        .split(' ')
+                        .map((n: any) => n[0])
+                        .join('')}
+                  </AvatarFallback>
+                </Avatar>
+              )}
               <div>
                 <p className='text-xs'>Professional Chef</p>
-                <p className='text-lg'>{data?.chef.firstName} {data?.chef.lastName}</p>
-                <p className='text-icon-hex'>ID {data?.chef?._id?.substr(0,4)}</p>
+                <p className='text-lg'>
+                  {data && data?.chef?.firstName} {data && data?.chef?.lastName}
+                </p>
+                <p className='text-icon-hex'>
+                  ID {data && data?.chef?._id?.substr(0, 4)}
+                </p>
               </div>
             </div>
             <div className='md:w-fit w-full'>
-              <Link href={`/chef/${data?.chef?._id}`} className='p-3 text-white hover:text-black hover:bg-white border bg-red-200 rounded-4xl w-full'>View More</Link>
+              <Link
+                href={`/chef/${data && data?.chef?._id}`}
+                className='p-3 text-white hover:text-black hover:bg-white border bg-red-200 rounded-4xl w-full'
+              >
+                View More
+              </Link>
             </div>
           </div>
         </div>

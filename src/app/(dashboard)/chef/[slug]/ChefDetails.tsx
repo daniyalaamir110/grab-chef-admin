@@ -13,10 +13,11 @@ import { toast } from 'sonner';
 
 const ChefDetails = () => {
   const [data, setData] = useState<any[]>([]);
+  const [chefEvents, setChefEvents] = useState<any[]>([]);
+  const [chefRevenue, setChefRevenue] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
   const params = useParams();
-  console.log('===params===>', JSON.stringify(params, null, 1));
   const chefId = params?.slug;
 
   const getChef = useCallback(async () => {
@@ -29,11 +30,25 @@ const ChefDetails = () => {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
-      console.log(
-        '===response.data===>',
-        JSON.stringify(response.data, null, 1),
-      );
       setData(response?.data?.chef);
+    } catch (error: any) {
+      toast(error?.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const getChefRevenue = useCallback(async () => {
+    try {
+      setLoading(true);
+      const token = getCookie('token');
+      const response = await axios.get(
+        `${BASE_API_URL}/admin/get-chef-revenue/${chefId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      setChefRevenue(response?.data);
     } catch (error: any) {
       toast(error?.message);
     } finally {
@@ -55,7 +70,7 @@ const ChefDetails = () => {
         '===response.data===>',
         JSON.stringify(response.data, null, 1),
       );
-      setData(response?.data?.chef);
+      setChefEvents(response?.data?.events);
     } catch (error: any) {
       toast(error?.message);
     } finally {
@@ -66,6 +81,7 @@ const ChefDetails = () => {
   useEffect(() => {
     getChef();
     getChefEvents();
+    getChefRevenue();
   }, []);
 
   return (
@@ -80,17 +96,17 @@ const ChefDetails = () => {
         {/* Top Row */}
         <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
           <ChefBanner />
-          <RevenueChart />
+          <RevenueChart chefRevenue={chefRevenue}/>
         </div>
 
         {/* Middle Row */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-          <MedalsAchievement />
+          {data && <MedalsAchievement data={data?.chef?.achievements} />}
           <ChefLevel />
         </div>
 
         {/* Bottom Row */}
-        <CustomerTable />
+        <CustomerTable events={chefEvents} />
       </div>
     </div>
   );
