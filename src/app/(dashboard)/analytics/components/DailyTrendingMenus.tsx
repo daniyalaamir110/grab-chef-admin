@@ -63,7 +63,7 @@ const trendingItems: TrendingItem[] = [
 ];
 
 const DailyTrendingMenus = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<any>({});
 
   const getBestSeller = async () => {
     try {
@@ -97,7 +97,7 @@ const DailyTrendingMenus = () => {
       <div className='space-y-4'>
         {data?.mostOrderedDishes &&
           data?.mostOrderedDishes.length &&
-          data?.mostOrderedDishes.map(item => (
+          data?.mostOrderedDishes.map((item:any) => (
             <div
               key={item.id}
               className='flex items-center space-x-3 hover:bg-gray-50 transition-colors duration-200 cursor-pointer rounded-lg p-2'

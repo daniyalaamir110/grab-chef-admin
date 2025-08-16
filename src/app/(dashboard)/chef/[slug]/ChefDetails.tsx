@@ -66,10 +66,7 @@ const ChefDetails = () => {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
-      console.log(
-        '===response.data===>',
-        JSON.stringify(response.data, null, 1),
-      );
+     
       setChefEvents(response?.data?.events);
     } catch (error: any) {
       toast(error?.message);

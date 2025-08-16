@@ -43,14 +43,16 @@ const ChefDocumentCard = ({
 
       {/* Chef Document */}
       <TableCell>
-        <div className='flex items-center gap-3'>
-          <div className='flex items-center gap-2'>
-            <div className='w-8 h-8 bg-red-500 rounded flex items-center justify-center'>
-              <span className='text-white text-xs font-medium'>PDF</span>
+        <a className='w-full' href={document}>
+          <div className='flex items-center gap-3'>
+            <div className='flex items-center gap-2 w-full'>
+              {document ? <div className='w-8 h-8 bg-red-500 rounded flex items-center justify-center'>
+                <span className='text-white text-xs font-medium'>PDF</span>
+              </div> : <p className='text-center w-full'>-</p>}
+              <span className='text-sm text-gray-900'>{document}</span>
             </div>
-            <span className='text-sm text-gray-900'>{document}</span>
           </div>
-        </div>
+        </a>
       </TableCell>
 
       {/* Join Date */}

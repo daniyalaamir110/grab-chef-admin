@@ -77,14 +77,12 @@ const OrderTracking = () => {
     }
   };
 
-  console.log(details,'--->')
   const getOrderDetails = async () => {
     try {
       if(params?.slug){
         const data = await getData(urls.order.getOrder(params?.slug as string))
         const attendenceData = await getData(urls.order?.getAttendence(params?.slug as string))
         setAttendence(attendenceData)
-        console.log(attendence,'---->')
         setDetails(data?.event)
       }
     } catch (error:any) {

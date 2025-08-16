@@ -37,10 +37,7 @@ const ChefDocumentTable = () => {
       const response = await axios.get(`${BASE_API_URL}/admin/get-chefs`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(
-        '===response.data===>',
-        JSON.stringify(response.data, null, 1),
-      );
+    
       setData(response?.data?.chef);
     } catch (error: any) {
       toast(error?.message);
@@ -54,9 +51,7 @@ const ChefDocumentTable = () => {
   }, []);
 
   const handleViewDetails = (documentId: string) => {
-    console.log({ documentId });
     const chef = data.find(doc => doc?._id === documentId);
-    console.log(chef);
     if (chef) {
       setSelectedChef(chef);
       setIsProfileOpen(true);

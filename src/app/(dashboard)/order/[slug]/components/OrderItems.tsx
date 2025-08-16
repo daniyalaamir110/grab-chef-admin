@@ -9,43 +9,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { XCircle } from 'lucide-react';
-import Image from 'next/image';
-
-const orderItems = [
-  {
-    id: 1,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR98TRYywjM93kWoqMRo0elB2wZpDsQxJTHkw&s',
-    title: 'Chicken curry special with cucumber',
-    category: 'MAIN COURSE',
-    rating: 4,
-    reviews: 454,
-    qty: 3,
-    advance: 14.99,
-    total: 44.97,
-  },
-  {
-    id: 2,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR98TRYywjM93kWoqMRo0elB2wZpDsQxJTHkw&s',
-    title: 'Italiano pizza with garlic',
-    category: 'MAIN COURSE',
-    rating: 4,
-    reviews: 454,
-    qty: 1,
-    advance: 15.44,
-    total: 15.44,
-  },
-  {
-    id: 3,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR98TRYywjM93kWoqMRo0elB2wZpDsQxJTHkw&s',
-    title: 'Watermelon juice with ice',
-    category: 'MAIN COURSE',
-    rating: 4,
-    reviews: 454,
-    qty: 1,
-    advance: 4.12,
-    total: 4.12,
-  },
-];
 
 export default function OrderItemTable({ data }: any) {
   return (
