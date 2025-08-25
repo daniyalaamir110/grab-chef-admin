@@ -173,9 +173,9 @@ const DashboardView = () => {
           chartData={areaChartData}
           chartConfig={areaChartConfig}
         />
-        {/* <div className='col-span-1 md:col-span-2'>
+        <div className='col-span-1 md:col-span-2'>
           <AnalyticsBarChart />
-        </div> */}
+        </div>
 
         <div className='grid col-span-full grid-cols-1 lg:grid-cols-4 gap-6'>
           {/* Left Column */}

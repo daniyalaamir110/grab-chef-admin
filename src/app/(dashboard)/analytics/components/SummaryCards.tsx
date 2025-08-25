@@ -75,7 +75,7 @@ export const StatCard: React.FC<StatCardProps> = ({
 };
 
 const SummaryCards = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<any>({});
 
   const getAnalyticsData = async () => {
     try {

@@ -44,7 +44,6 @@ const Orders = () => {
   const getOrders = async () => {
     try {
       const data = await getData(urls.order.getOrders)
-      console.log(data,'----orders')
       setOrders(data?.events)
     } catch (error:any) {
       console.log(error?.message)

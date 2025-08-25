@@ -60,7 +60,6 @@ const LoyalCustomers = () => {
       });
       const resData = res.data;
       setData(resData);
-      console.log('===resData===>', JSON.stringify(resData, null, 1));
     } catch (error) {
       console.log('error', error);
     }
@@ -86,7 +85,7 @@ const LoyalCustomers = () => {
               <div className='space-y-4'>
                 {data &&
                   data.length &&
-                  data?.slice(0, 5).map(customer => (
+                  data?.slice(0, 5).map((customer:any) => (
                     <div
                       key={customer._id}
                       className='flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200 cursor-pointer'
