@@ -13,21 +13,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
+import { CustomPagination } from "@/components/ui/custom-pagination";
 import Link from "next/link";
 import { toast } from "sonner";
 import { urls } from "@/api/urls";
@@ -40,6 +32,7 @@ const Orders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [orders, setOrders] = useState([]);
   const [selected, setSelected] = useState<string[]>([]);
+  const itemsPerPage = 10;
 
   const getOrders = async () => {
     try {
@@ -79,6 +72,15 @@ const Orders = () => {
     console.log({ temp })
     setSelected(temp)
   }
+
+  const totalItems = orders.length;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentOrders = orders.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="p-6 w-full">
@@ -126,7 +128,7 @@ const Orders = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {orders.map((order:any, index) => (
+              {currentOrders.map((order:any, index) => (
                 <TableRow key={order._id} className={selected.includes(order.id) ? " shadow-md shadow-red-300 border-l-4 border-l-red-500" : ""}>
                   <TableCell className="font-medium text-blue-600"><Checkbox onCheckedChange={() => handleSelect(order._id)} /></TableCell>
                   <TableCell className="font-medium text-blue-600">
@@ -158,39 +160,14 @@ const Orders = () => {
         </div>
       </div>
 
-      {/* Pagination */}
-      {/* <div className="flex items-center justify-between mt-6">
-        <p className="text-sm text-gray-600">
-          Showing <span className="font-bold">10</span> from <span className="font-bold">46</span> data
-        </p>
-
-        <div className="flex items-center space-x-2">
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem className="rounded-full">
-                <PaginationLink className="rounded-full" href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive>
-                  2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </div>
-      </div> */}
+      <div className="mt-6">
+        <CustomPagination
+          currentPage={currentPage}
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };
