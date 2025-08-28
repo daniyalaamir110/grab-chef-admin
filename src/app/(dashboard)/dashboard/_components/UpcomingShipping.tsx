@@ -7,6 +7,7 @@ import { getCookie, useGetCookie } from 'cookies-next/client';
 import { ChevronDown, MapPin, Plane } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import DeliveryMaps from './DeliveryMap';
+import DownArrowButton from './DownArrowButton';
 
 interface Customer {
   _id: string;
@@ -95,8 +96,8 @@ const UpcomingShipping = () => {
   const hasMoreOrders = pendingOrders.length > 3;
 
   return (
-    <Card>
-      <CardContent className='space-y-6 p-6'>
+    <Card className="relative">
+      <CardContent className='space-y-6 px-6'>
         <DeliveryMaps data={data} />
         
         {/* Upcoming Shipping Schedule Section */}
@@ -159,17 +160,8 @@ const UpcomingShipping = () => {
         </div>
         
         {/* Show More Button */}
-        {hasMoreOrders && (
-          <div className='flex justify-center pt-2'>
-            <div
-              className='w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center shadow-sm cursor-pointer'
-              onClick={() => setShowAll(!showAll)}
-            >
-              <ChevronDown className={`h-3 w-3 text-gray-600 transition-transform ${showAll ? 'rotate-180' : ''}`} />
-            </div>
-          </div>
-        )}
       </CardContent>
+      <DownArrowButton onClick={() => {}} />
     </Card>
   );
 };

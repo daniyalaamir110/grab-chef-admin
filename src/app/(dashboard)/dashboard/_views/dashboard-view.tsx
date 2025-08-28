@@ -173,26 +173,29 @@ const DashboardView = () => {
           chartData={areaChartData}
           chartConfig={areaChartConfig}
         />
-        <div className='col-span-1 md:col-span-2'>
-          <AnalyticsBarChart />
+      </div>
+
+
+      {/* Main Content Grid */}
+      <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
+        {/* Left Column - 1/4 width */}
+        <div className='lg:col-span-1 space-y-6'>
+          <TopRatedChefs />
+          <MostOrderedDishes />
         </div>
 
-        <div className='grid col-span-full grid-cols-1 lg:grid-cols-4 gap-6'>
-          {/* Left Column */}
-          <div className='xl:col-span-1 col-span-full space-y-6'>
-            <TopRatedChefs />
-            <MostOrderedDishes />
-          </div>
-
-          {/* Middle Column */}
-          <div className='xl:col-span-3 col-span-full  space-y-6'>
-            <div className='grid gap-6 grid-cols-3'>
-              <div className='xl:col-span-1 col-span-full'>
-                <CustomersList />
-              </div>
-              <div className='xl:col-span-2 col-span-full'>
-                <UpcomingShipping />
-              </div>
+        {/* Right Column - 3/4 width */}
+        <div className='lg:col-span-3 space-y-6'>
+          {/* Customer Map */}
+          <AnalyticsBarChart />
+          
+          {/* Bottom Row */}
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            <div className='md:col-span-1'>
+              <CustomersList />
+            </div>
+            <div className='md:col-span-2'>
+              <UpcomingShipping />
             </div>
           </div>
         </div>

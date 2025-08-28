@@ -53,8 +53,8 @@ export function AreaChartComponent({
   return (
     <Card className="relative">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <div>
-          <CardTitle className="text-sm font-medium">Today's Revenue</CardTitle>
+        <div className='flex flex-1 flex-col justify-center gap-1'>
+          <CardTitle>Today's Revenue</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Lorem ipsum dolor sit amet, consectetur
           </CardDescription>
