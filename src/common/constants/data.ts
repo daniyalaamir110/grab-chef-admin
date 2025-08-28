@@ -326,16 +326,17 @@ export const sessionsData = [
 ];
 
 export const areaChartData = [
-  { month: 'January', desktop: 186 },
-  { month: 'February', desktop: 305 },
-  { month: 'March', desktop: 237 },
-  { month: 'April', desktop: 73 },
-  { month: 'May', desktop: 209 },
-  { month: 'June', desktop: 214 },
+  { time: '08:00', revenue: 15 },
+  { time: '09:00', revenue: 35 },
+  { time: '10:00', revenue: 50 },
+  { time: '11:00', revenue: 30 },
+  { time: '12:00', revenue: 50 },
+  { time: '13:00', revenue: 15 },
+  { time: '14:00', revenue: 30 },
 ];
 export const areaChartConfig = {
-  desktop: {
-    label: 'Desktop',
+  revenue: {
+    label: 'Revenue',
     color: '#FFC71F',
   },
 } satisfies ChartConfig;
