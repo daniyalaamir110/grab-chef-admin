@@ -125,12 +125,12 @@ const UpcomingShipping = () => {
                   {/* Customer Details and Address Container */}
                   <div className='flex-1 flex justify-between items-start min-w-0'>
                     {/* Customer Details */}
-                    <div className='flex-1 min-w-0'>
-                      <div className='flex items-center gap-2 mb-1'>
-                        <span className='font-bold text-gray-900'>
+                    <div className='flex-1 min-w-0 pr-4'>
+                      <div className='flex items-center gap-2 mb-1 flex-wrap'>
+                        <span className='font-bold text-gray-900 break-words'>
                           {item.customer?.firstName} {item.customer?.lastName}
                         </span>
-                        <span className='text-sm text-red-500 font-bold'>
+                        <span className='text-sm text-red-500 font-bold flex-shrink-0'>
                           ({item.menuItems?.length || 0} Items)
                         </span>
                       </div>
@@ -140,8 +140,8 @@ const UpcomingShipping = () => {
                     </div>
                     
                     {/* Address and Location Pin */}
-                    <div className='flex items-center gap-3 flex-shrink-0'>
-                      <div className='text-sm text-gray-600 text-right max-w-xs'>
+                    <div className='flex items-start gap-3 flex-shrink-0'>
+                      <div className='text-sm text-gray-600 text-right max-w-[200px] sm:max-w-[250px] break-words'>
                         {item.fullAddress?.name || item.fullAddress?.address || 'Address not available'}
                         {item.fullAddress?.address && item.fullAddress?.name !== item.fullAddress?.address && (
                           <span>, {item.fullAddress.address}</span>
