@@ -29,7 +29,8 @@ const Analytics = () => {
             <SalesStatisticsChart />
             <SalesSummary />
           </div>
-          <div className='col-span-1'>
+          <div className='col-span-1 flex flex-col gap-4'>
+            <CustomerBarChart />
             <LoyalCustomers />
           </div>
           <div className='col-span-3'>
