@@ -97,25 +97,25 @@ export const analyticsData = (data: any) => [
     title: 'Total Menus',
     image: '/assets/icons/menu.svg',
     value: `${data['totalMenu']}`,
-    progress: 50,
+    progress: 77,
   },
   {
     title: 'Total Chef',
     image: '/assets/icons/revenue.svg',
     value: ` ${data['totalChef']}`,
-    progress: 100,
+    progress: 25,
   },
   {
     title: 'Total Customers',
     image: '/assets/icons/customer.svg',
     value: `${data['totalCustomer']}`,
-    progress: 20,
+    progress: 53,
   },
   {
     title: 'Total Orders',
     image: '/assets/icons/order.svg',
     value: `${data['totalOrders']}`,
-    progress: 300,
+    progress: 88,
   },
 ];
 
