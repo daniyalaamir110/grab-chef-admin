@@ -16,7 +16,7 @@ const chartData = [
 
 const SalesSummary: React.FC = () => {
     return (
-        <div className="bg-white p-6 rounded-2xl shadow w-full max-w-4xl mx-auto ">
+        <div className="bg-white p-6 rounded-2xl shadow w-full ">
             <div className="w-full mb-8">
                 <div className="flex items-center justify-between">
                     <div>

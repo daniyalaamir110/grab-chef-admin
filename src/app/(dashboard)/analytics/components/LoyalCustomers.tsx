@@ -71,10 +71,10 @@ const LoyalCustomers = () => {
 
   return (
     <div>
-      <div className=' mt-4'>
+      <div>
         <div>
           <div className='flex justify-center'>
-            <Card className='w-full mx-auto px-6 py-4 bg-white shadow-lg'>
+            <Card className='w-full mx-auto px-6 py-4 bg-white shadow'>
               <div className='mb-2'>
                 <h2 className='text-xl font-semibold text-gray-900 mb-1'>
                   Loyal Customers
