@@ -62,17 +62,19 @@ export function AnalyticsCard({ data }: { data: AnalyticsCardProps }) {
             className='transition-all duration-300 ease-in-out'
           />
         </svg>
-        <div className='absolute inset-0 flex items-center justify-center'>
-          <div className={'p-2 rounded-full bg-white'}>
-            <Image
-              src={data.image}
-              alt={data.title}
-              width={30}
-              height={30}
-              className='object-contain max-h-[30px] max-w-[30px] h-auto w-auto'
-            />
+        {data.image && (
+          <div className='absolute inset-0 flex items-center justify-center'>
+            <div className={'p-2 rounded-full bg-white'}>
+              <Image
+                src={data.image}
+                alt={data.title}
+                width={30}
+                height={30}
+                className='object-contain max-h-[30px] max-w-[30px] h-auto w-auto'
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
