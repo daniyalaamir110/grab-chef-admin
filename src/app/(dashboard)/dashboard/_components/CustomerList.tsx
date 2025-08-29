@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useCustomers } from "@/common/contexts/CustomersContext";
 import DownArrowButton from "./DownArrowButton";
+import { Plus } from "lucide-react";
 
 const CustomersList = () => {
   const { customers, loading, error } = useCustomers();
@@ -50,8 +51,8 @@ const CustomersList = () => {
           <CardTitle>Customers</CardTitle>
           <CardDescription>Lorem ipsum dolor</CardDescription>
         </div>
-        <Button size="icon" className="bg-red-500 hover:bg-red-600 rounded-full">
-          <span className="text-white text-2xl">+</span>
+        <Button size="icon" className="bg-red-500 hover:bg-red-600 rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
+          <Plus className="text-white scale-150" />
         </Button>
       </CardHeader>
       <CardContent className="space-y-4">

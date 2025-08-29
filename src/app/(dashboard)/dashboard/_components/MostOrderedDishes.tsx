@@ -48,7 +48,7 @@ const MostOrderedDishes = () => {
       <CardContent className="space-y-8">
         {topTags.map((dish:any) => (
           <div key={dish?.itemName || 'NA'} className="space-y-2">
-            <Progress value={(dish?.orders / totalOrders) * 100 || 0} className="h-2" />
+            <Progress value={(dish?.orders / totalOrders) * 100 || 0} className="h-2 rounded-full" />
             <div className="flex justify-between items-center">
               <span className="text-sm font-medium">#{dish.cuisine}</span>
               <span className="text-xs text-muted-foreground">{dish.orders} times</span>

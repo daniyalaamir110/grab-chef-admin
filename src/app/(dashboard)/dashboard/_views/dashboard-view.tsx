@@ -68,10 +68,7 @@ const DashboardView = () => {
             />
           ))}
         </div>
-        <AreaChartComponent
-          chartData={areaChartData}
-          chartConfig={areaChartConfig}
-        />
+        <AreaChartComponent />
       </div>
 
 

@@ -19,7 +19,7 @@ export function AnalyticsCard({ data }: { data: AnalyticsCardProps }) {
   return (
     <div
       className={cn(
-        'flex items-center justify-between shadow-md',
+        'flex items-center justify-between shadow-sm border',
         'bg-[FFECEC] rounded-[20px] px-6 py-4 min-h-[148px]',
       )}
     >

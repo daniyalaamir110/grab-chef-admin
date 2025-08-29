@@ -4,8 +4,6 @@ import {
   Area,
   AreaChart,
   CartesianGrid,
-  Pie,
-  PieChart,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -16,39 +14,144 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { cn } from '@/lib/utils';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useEffect, useState } from 'react';
+import { getCookie } from 'cookies-next/client';
+import axios from 'axios';
+import { BASE_API_URL } from '@/common/constants';
+
+interface RevenueStatsResponse {
+  todayRevenue: number;
+  yesterdayRevenue: number;
+  percentageChange: number;
+  trend: 'increase' | 'decrease' | 'no change';
+  monthlyRevenue: Array<{
+    month: string;
+    total: number;
+  }>;
+}
 
 interface ChartDataProps {
   chartData: {
-    time: string;
+    month: string;
     revenue: number;
   }[];
 }
 
-export function AreaChartComponent({
-  chartConfig,
-  chartData,
-}: {
-  chartConfig: ChartConfig;
-  chartData: ChartDataProps['chartData'];
-}) {
-  // Calculate total revenue
-  const totalRevenue = chartData.reduce((sum, item) => sum + item.revenue, 0);
+export function AreaChartComponent() {
+  const [revenueData, setRevenueData] = useState<RevenueStatsResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const getRevenueStats = async () => {
+    try {
+      setLoading(true);
+      const token = getCookie('token');
+      const response = await axios.get(
+        `${BASE_API_URL}/admin/get-revenue-stats`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setRevenueData(response.data);
+    } catch (error: any) {
+      setError(error?.message || 'Failed to fetch revenue data');
+      console.error('Revenue stats error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getRevenueStats();
+  }, []);
+
+  // Transform monthly revenue data for chart
+  const chartData = revenueData?.monthlyRevenue?.map(item => ({
+    month: item.month,
+    revenue: item.total
+  })) || [];
+
+  const chartConfig = {
+    revenue: {
+      label: 'Revenue',
+      color: '#FFC71F',
+    },
+  };
+
+  if (loading) {
+    return (
+      <Card className="relative">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <div className='flex flex-1 flex-col justify-center gap-1'>
+            <CardTitle>Today's Revenue</CardTitle>
+            <CardDescription className="text-xs text-muted-foreground">
+              Lorem ipsum dolor sit amet, consectetur
+            </CardDescription>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold">Loading...</div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[180px] w-full flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card className="relative">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <div className='flex flex-1 flex-col justify-center gap-1'>
+            <CardTitle>Today's Revenue</CardTitle>
+            <CardDescription className="text-xs text-muted-foreground">
+              Lorem ipsum dolor sit amet, consectetur
+            </CardDescription>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold">Error</div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[180px] w-full flex items-center justify-center text-red-500">
+            Failed to load revenue data
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const getTrendColor = (trend: string) => {
+    switch (trend) {
+      case 'increase':
+        return 'text-green-600';
+      case 'decrease':
+        return 'text-red-600';
+      default:
+        return 'text-gray-600';
+    }
+  };
+
+  const getTrendIcon = (trend: string) => {
+    switch (trend) {
+      case 'increase':
+        return '↗';
+      case 'decrease':
+        return '↘';
+      default:
+        return '→';
+    }
+  };
   
   return (
     <Card className="relative">
@@ -60,8 +163,12 @@ export function AreaChartComponent({
           </CardDescription>
         </div>
         <div className="text-right">
-          <div className="text-2xl font-bold">PKR {totalRevenue.toFixed(2)}</div>
-          <div className="text-xs text-green-600">0.5% than last day</div>
+          <div className="text-2xl font-bold">
+            PKR {revenueData?.todayRevenue?.toFixed(2) || '0.00'}
+          </div>
+          <div className={`text-xs ${getTrendColor(revenueData?.trend || 'no change')}`}>
+            {getTrendIcon(revenueData?.trend || 'no change')} {revenueData?.percentageChange?.toFixed(1) || '0'}% than last day
+          </div>
         </div>
       </CardHeader>
       <CardContent>
@@ -86,11 +193,12 @@ export function AreaChartComponent({
               stroke="#f0f0f0"
             />
             <XAxis
-              dataKey='time'
+              dataKey='month'
               tickLine={false}
               axisLine={false}
               tickMargin={8}
               tick={{ fontSize: 12, fill: '#666' }}
+              tickFormatter={(value) => value.slice(0, 3)}
             />
             <YAxis
               tickLine={false}

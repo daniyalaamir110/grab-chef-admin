@@ -231,7 +231,7 @@ export function AnalyticsBarChart() {
           </CardDescription>
         </div>
         <div className='flex items-center px-6 sm:px-8'>
-          <div className='flex rounded-full bg-gray-100 p-1'>
+          <div className='flex rounded-full bg-gray-100 p-1 shadow-md'>
             {(['monthly', 'weekly', 'daily'] as const).map((period) => (
               <button
                 key={period}
