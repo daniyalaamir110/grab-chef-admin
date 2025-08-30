@@ -60,7 +60,7 @@ const DashboardView = () => {
       </div>
 
       <div className='grid grid-cols-1 xl:grid-cols-2 gap-4'>
-        <div className={cn('col-span-1', 'grid grid-cols-2', 'gap-4')}>
+        <div className={cn('col-span-1', 'grid grid-cols-1 sm:grid-cols-2', 'gap-4')}>
           {analyticsData(data).map((item, index) => (
             <AnalyticsCard
               key={index}
